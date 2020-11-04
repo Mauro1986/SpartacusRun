@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30523.141
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpartacusRun", "SpartacusRun\SpartacusRun.csproj", "{8E92218A-4591-4638-B231-779B48EAC7DF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpartacusRun Ruben", "SpartacusRun Ruben\SpartacusRun Ruben.csproj", "{343674E7-1F4C-43A3-A5F7-0E6E1ACA0287}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8E92218A-4591-4638-B231-779B48EAC7DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E92218A-4591-4638-B231-779B48EAC7DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E92218A-4591-4638-B231-779B48EAC7DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E92218A-4591-4638-B231-779B48EAC7DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{343674E7-1F4C-43A3-A5F7-0E6E1ACA0287}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{343674E7-1F4C-43A3-A5F7-0E6E1ACA0287}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{343674E7-1F4C-43A3-A5F7-0E6E1ACA0287}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{343674E7-1F4C-43A3-A5F7-0E6E1ACA0287}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FEB192D0-62D7-46C0-808E-47ABAB8BE086}
+	EndGlobalSection
+EndGlobal
