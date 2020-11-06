@@ -1,0 +1,4 @@
+﻿1>------ Build started: Project: SpartacusRun, Configuration: Debug Any CPU ------
+1>C:\Users\Mauro\source\repos\SpartacusRun\SpartacusRun\Program.cs(25,17,25,24): warning CS0219: The variable 'indexer' is assigned but its value is never used
+1>  SpartacusRun -> C:\Users\Mauro\source\repos\SpartacusRun\SpartacusRun\bin\Debug\SpartacusRun.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
