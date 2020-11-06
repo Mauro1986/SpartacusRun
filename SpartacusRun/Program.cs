@@ -24,7 +24,7 @@ namespace SpartacusRun
             int speed;
             int indexer = 0;
             DateTime timePassedJelle, timePassedLotte, actueleTijd;
-            TimeSpan raceTime;
+            TimeSpan raceTime, raceJelle, raceLotte;
 
             // INPUT
             speed = 50;
@@ -38,7 +38,9 @@ namespace SpartacusRun
             timePassedLotte = DateTime.Now;
             actueleTijd = DateTime.Now;
             raceTime = new TimeSpan(0, 0, 0);
-
+            raceJelle = new TimeSpan(0, 0, 0);
+            raceLotte = new TimeSpan(0, 0, 0);
+            bool winnaar;
 
             //PROCESSING
             while ((afstandLotte < 5000) || (afstandJelle < 5000))
@@ -53,36 +55,12 @@ namespace SpartacusRun
                 int afstandLotteToInt = (int)afstandLotte;      //casten decimal naar int
                 int afstandJelleToInt = (int)afstandJelle;      //casten decimal naar int
 
-                //OBSTAKELS
-                for (int i = 0; i < obstakelAfstand.Length; i++)
-                {
-                    if (afstandJelleToInt == obstakelAfstand[i])
-                    {
-                        Console.WriteLine($"Jelle zit vast aan: {obstakelNaam[i]}");//1/100 per second
-                        snelheidJelle = 0;
-                        while (slaagKansJelle == 1)
-                        {
-                            snelheidJelle = number.Next(9, 14);
-                        }
-                    }
-                }
-                for (int i = 0; i < obstakelAfstand.Length; i++)
-                {
-                    if (afstandLotteToInt == obstakelAfstand[i])
-                    {
-                        Console.WriteLine($"Lotte zit vast aan: {obstakelNaam[i]}");
-                        snelheidLotte = 0;
-                        while (slaagKansLotte == 1)
-                        {
-                            snelheidLotte = number.Next(7, 12);
-                        }
-                    }
-                }
-
                     //change speed every minute
                     if (raceTime.TotalSeconds % 60 == 0)
                     {
                         Console.WriteLine("Speed Change");
+                    //Console.ReadLine();
+                    //Console.ReadKey();
                         Console.WriteLine("Speed Change");
                         snelheidJelle = number.Next(9, 14);
                         snelheidLotte = number.Next(7, 12);
@@ -90,33 +68,69 @@ namespace SpartacusRun
                         Console.WriteLine("Speed Change");
                     }
 
+                //OBSTAKELS JELLE                                       //WERKT GOED enkel PROBLEEM IS ZE SOMS OVER OBSTAKEL SPRINGEN Vb 101 of 98 ipv 100
+                for (int i = 0; i < obstakelAfstand.Length; i++)
+                {
+                    if (afstandJelleToInt == obstakelAfstand[i])
+                    {
+                        snelheidJelle = 0;
+                        slaagKansJelle = number.Next(1, 60);
+                        if (slaagKansJelle == 1)
+                        {
+                            snelheidJelle = number.Next(9, 14);
+                        }
+                    }
+                }
+                //OBSTAKELS LOTTE
+                for (int i = 0; i < obstakelAfstand.Length; i++)
+                {
+                    if (afstandLotteToInt == obstakelAfstand[i])
+                    {
+                        snelheidLotte = 0;
+                        slaagKansLotte = number.Next(1, 60);
+                        if (slaagKansLotte == 1)
+                        {
+                            snelheidLotte = number.Next(9, 14);
+                        }
+                    }
+                }
+
+   
 
 
+                //OUTPUT
+                Toonrace(slaagKansLotte,slaagKansJelle ,obstakelAfstand, obstakelNaam, raceTime, snelheidLotte, afstandLotte, snelheidJelle, afstandJelle, actueleTijd/*, obstakelAfstand[indexer] , timePassedJelle, timePassedLotte*/);
 
-                    //OUTPUT
-                    Toonrace(obstakelAfstand, obstakelNaam, raceTime, snelheidLotte, afstandLotte, snelheidJelle, afstandJelle, actueleTijd/*, obstakelAfstand[indexer] , timePassedJelle, timePassedLotte*/);
+                //TUSSENDTIJD
+                timePassedLotte.AddSeconds(1);
+                timePassedJelle.AddSeconds(1);
 
+                //AANKOMST                                                                          //PROBLEEM, ze blijven lopen
+                if (afstandJelleToInt >= 500 && afstandLotte < 500)
+                {
+                    snelheidJelle = 0;
+                    Console.WriteLine($"Tijd Jelle = {raceJelle.Minutes} Minuten {raceJelle.Seconds} Seconden");
 
+                }
+                else if (afstandLotteToInt >= 500 && afstandJelle < 500)
+                {
+                    snelheidLotte = 0;
+                    Console.WriteLine($"Tijd Lotte = {raceLotte.Minutes} Minuten {raceLotte.Seconds} Seconden");
 
+                }
+                else if (afstandJelleToInt >= 500 && afstandLotte >= 500)
+                {
+                    Console.WriteLine("Einde race, ge moogt naar huis");
+                }
+                Thread.Sleep(speed);
 
-                    //add time
-                    timePassedLotte.AddSeconds(1);
-                    timePassedJelle.AddSeconds(1);
-
-                    Thread.Sleep(speed);
-
-                    //Keep console open
-
-                
+                    //Keep console open            
             }
         }
-        static void Toonrace(int[] obstakelAfstand, string[] obstakelNaam ,TimeSpan raceTime, decimal snelheidLotte, decimal afstandLotte, decimal snelheidJelle, decimal afstandJelle, DateTime actueleTijd/*,int indexer, int[] obstakelAfstand, string[] obstakelNaam, DateTime timePasssedJelle, DateTime timePasssedLotte*/)
+        static void Toonrace(decimal slaagKansJelle, decimal slaagKansLotte, int[] obstakelAfstand, string[] obstakelNaam ,TimeSpan raceTime, decimal snelheidLotte, decimal afstandLotte, decimal snelheidJelle, decimal afstandJelle, DateTime actueleTijd/*,int indexer, int[] obstakelAfstand, string[] obstakelNaam, DateTime timePasssedJelle, DateTime timePasssedLotte*/)
         {
-
             int afstandLotteToInt = (int)afstandLotte;      //casten decimal naar int
             int afstandJelleToInt = (int)afstandJelle;      //casten decimal naar int
-
-
 
             Console.Clear();       
             //SHOW TIME
@@ -146,25 +160,30 @@ namespace SpartacusRun
                 Console.ResetColor();
             }
 
-            //OBSTAKELS
+
+            for (int i = 0; i < obstakelAfstand.Length; i++)
+            {
+                if (afstandLotteToInt == obstakelAfstand[i])
+                {
+                    Console.WriteLine($"Lotte zit vast aan: {obstakelNaam[i]}");
+                }
+            }
             for (int i = 0; i < obstakelAfstand.Length; i++)
             {
                 if (afstandJelleToInt == obstakelAfstand[i])
                 {
-                    Console.WriteLine($"Jelle zit vast aan: {obstakelNaam[i]}");//1/100 per second
-
+                    Console.WriteLine($"Jelle zit vast aan: {obstakelNaam[i]}");
                 }
             }
-            for (int i = 0; i < obstakelAfstand.Length; i++)
-            {            
-                if (afstandLotteToInt == obstakelAfstand[i])
-                {
-                    Console.WriteLine($"Lotte zit vast aan: {obstakelNaam[i]}");//1/100 per second
-                 
-                }
+           
+            if (afstandJelleToInt >= 500 && afstandLotteToInt <500)
+            {
+                Console.WriteLine($"Jelle is de winnaar");
             }
-            Console.ReadLine();
+            else if (afstandLotteToInt >= 500 && afstandJelleToInt < 500)
+            {
+                Console.WriteLine($"Lotte is de winnaar");
+            }
         }
     }
 }
-
